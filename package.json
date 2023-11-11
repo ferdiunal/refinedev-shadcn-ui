@@ -64,6 +64,13 @@
     "publishConfig": {
         "access": "public"
     },
+    "keywords": [
+        "refinedev",
+        "shadcn-ui",
+        "theme",
+        "react",
+        "tailwindcss"
+    ],
     "license": "MIT",
     "repository": {
         "type": "git",
