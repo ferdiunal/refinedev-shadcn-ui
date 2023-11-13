@@ -6,7 +6,7 @@ This package is a theme integration for [refine.dev](https://refine.dev) built u
 
 # Sponsors
 
-[<img src="https://avatars.githubusercontent.com/u/104967037?s=200&v=4" width="100">](https://avatars.githubusercontent.com/u/104967037?s=200&v=4)
+[<img src="https://avatars.githubusercontent.com/u/104967037?s=200&v=4" width="100">](https://github.com/refinedev)
 
 ## License
 
