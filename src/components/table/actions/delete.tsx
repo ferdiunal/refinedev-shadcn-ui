@@ -4,8 +4,8 @@ import { AlertTriangleIcon, Trash2 } from "lucide-react";
 import { useCallback, useContext } from "react";
 import type { RowActionProps } from ".";
 import { RowAction } from ".";
-import { useDeleteHelper } from "../../../hooks";
-import { TableDeleteContext, TableDeleteContextType } from "../../../providers";
+import { useDeleteHelper, useOnBack } from "../../../hooks";
+import { DeleteContext, DeleteContextType } from "../../../providers";
 import {
     Button,
     Dialog,
@@ -25,7 +25,8 @@ type DeleteActionProps = RowActionProps & {
     withForceDelete?: boolean;
 };
 
-export function DeleteActionModal(props: TableDeleteContextType) {
+export function DeleteActionModal(props: DeleteContextType) {
+    const back = useOnBack();
     const { can, isLoading, mutate } = useDeleteHelper(
         props.data?.resource,
         props.data?.row?.id,
@@ -37,11 +38,17 @@ export function DeleteActionModal(props: TableDeleteContextType) {
         if (can) {
             return mutate({
                 onSuccess() {
+                    const isRedirectBack = props?.data?.redirectBack ?? false;
                     props?.updateData({
                         toogle: false,
                         row: undefined,
                         resource: "",
+                        redirectBack: false,
                     });
+
+                    if (isRedirectBack) {
+                        back?.();
+                    }
                 },
             });
         }
@@ -118,7 +125,7 @@ export function DeleteAction({
     ...props
 }: DeleteActionProps) {
     const { can, reason } = useDeleteHelper(resource, row.id);
-    const deleteContext = useContext(TableDeleteContext);
+    const deleteContext = useContext(DeleteContext);
 
     return (
         <RowAction

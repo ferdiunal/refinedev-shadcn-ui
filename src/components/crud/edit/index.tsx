@@ -7,6 +7,7 @@ import {
 import React, { ReactNode } from "react";
 import { Breadcrumb, DeleteButton, PageHeader, ShowButton } from "../..";
 import { ListProps } from "../types";
+import { DeleteProvider } from "@/providers";
 
 export const Edit: React.FC<ListProps> = ({
     title,
@@ -28,7 +29,7 @@ export const Edit: React.FC<ListProps> = ({
             : breadcrumbFromProps;
 
     return (
-        <>
+        <DeleteProvider>
             <PageHeader
                 title={
                     title ??
@@ -59,6 +60,6 @@ export const Edit: React.FC<ListProps> = ({
                 }
             />
             <div className="relative pt-4">{children as ReactNode}</div>
-        </>
+        </DeleteProvider>
     );
 };
