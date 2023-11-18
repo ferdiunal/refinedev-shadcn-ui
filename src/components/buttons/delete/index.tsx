@@ -1,7 +1,7 @@
 import {
     AccessControlContext,
+    useBack,
     useCan,
-    useDelete,
     useResource,
     useTranslate,
 } from "@refinedev/core";
@@ -15,6 +15,8 @@ import { Trash2 } from "lucide-react";
 import { cn } from "../../../lib/utils";
 import { Button } from "../../../ui";
 import { DeleteButtonProps } from "../types";
+import { useDeleteHelper } from "@/hooks";
+import { DeleteContext } from "@/providers";
 
 export const DeleteButton: React.FC<DeleteButtonProps> = ({
     resource: resourceNameFromProps,
@@ -48,94 +50,38 @@ export const DeleteButton: React.FC<DeleteButtonProps> = ({
 
     const translate = useTranslate();
 
-    const { id, resource } = useResource(
-        resourceNameFromProps ?? propResourceNameOrRouteName,
+    const { can, reason } = useDeleteHelper(
+        resourceNameFromProps as string,
+        recordItemId as string,
     );
+    const deleteContext = useContext(DeleteContext);
 
-    // const { mutationMode: mutationModeContext } = useMutationMode();
-
-    // const mutationMode = mutationModeProp ?? mutationModeContext;
-
-    // const { mutate, isLoading, variables } = useDelete();
-
-    const { data } = useCan({
-        resource: resource?.name,
-        action: "delete",
-        params: { id: recordItemId ?? id, resource },
-        queryOptions: {
-            enabled: accessControlEnabled,
-        },
-    });
-
-    const disabledTitle = () => {
-        if (data?.can) return "";
-        else if (data?.reason) return data.reason;
-        else
-            return translate(
-                "buttons.notAccessTitle",
-                "You don't have permission to access",
-            );
-    };
-
-    // const { setWarnWhen } = useWarnAboutChange();
-
-    if (accessControlEnabled && hideIfUnauthorized && !data?.can) {
+    if (accessControlEnabled && hideIfUnauthorized && can) {
         return null;
     }
 
     return (
-        // <Popconfirm
-        //     key="delete"
-        //     okText={confirmOkText ?? translate("buttons.delete", "Delete")}
-        //     cancelText={
-        //         confirmCancelText ?? translate("buttons.cancel", "Cancel")
-        //     }
-        //     okType="danger"
-        //     title={
-        //         confirmTitle ?? translate("buttons.confirm", "Are you sure?")
-        //     }
-        //     okButtonProps={{ disabled: isLoading }}
-        //     onConfirm={(): void => {
-        // if ((recordItemId ?? id) && identifier) {
-        //     setWarnWhen(false);
-        //     mutate(
-        //         {
-        //             id: recordItemId ?? id ?? "",
-        //             resource: identifier,
-        //             mutationMode,
-        //             successNotification,
-        //             errorNotification,
-        //             meta: pickNotDeprecated(meta, metaData),
-        //             metaData: pickNotDeprecated(meta, metaData),
-        //             dataProviderName,
-        //             invalidates,
-        //         },
-        //         {
-        //             onSuccess: (value) => {
-        //                 onSuccess && onSuccess(value);
-        //             },
-        //         },
-        //     );
-        // }
-        //     }}
-        //     disabled={
-        //         typeof rest?.disabled !== "undefined"
-        //             ? rest.disabled
-        //             : data?.can === false
-        //     }
-        // >
         <Button
-            title={disabledTitle()}
-            disabled={data?.can === false}
+            title={reason}
+            disabled={can === false}
             data-testid={RefineButtonTestIds.DeleteButton}
             variant={"destructive"}
             className={RefineButtonClassNames.DeleteButton}
             size={hideText ? "icon" : rest.size ?? "default"}
+            onClick={() => {
+                deleteContext?.updateData({
+                    toogle: true,
+                    row: {
+                        id: recordItemId,
+                    },
+                    redirectBack: true,
+                    resource: resourceNameFromProps as string,
+                });
+            }}
             {...rest}
         >
             <Trash2 className={cn(!hideText ? "mr-2" : "")} size={16} />
             {!hideText && (children ?? translate("buttons.delete", "Delete"))}
         </Button>
-        // </Popconfirm>
     );
 };
