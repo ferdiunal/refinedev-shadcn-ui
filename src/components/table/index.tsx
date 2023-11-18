@@ -58,6 +58,7 @@ export type ColumnProps<
     TValue = unknown,
     TError extends HttpError = HttpError,
 > = {
+    id: string;
     accessorKey: string;
     enableSorting?: boolean;
     enableHiding?: boolean;
@@ -92,6 +93,7 @@ export function Table<
 >({ children, table, showHeader = true }: TableProps<TData, TError>) {
     const mapColumn = useCallback(
         ({
+            id,
             accessorKey,
             header,
             enableSorting,
@@ -100,7 +102,7 @@ export function Table<
             cell,
         }: ColumnProps<TData, TError>): ColumnDef<TData, unknown> => {
             const column: any = {
-                id: accessorKey,
+                id,
                 header,
                 accessorKey,
                 enableSorting: enableSorting ?? false,
