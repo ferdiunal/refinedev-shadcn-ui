@@ -1,3 +1,4 @@
+import { DeleteProvider } from "@/providers";
 import {
     useRefineContext,
     useResource,
@@ -30,7 +31,7 @@ export const Show = ({
             : breadcrumbFromProps;
 
     return (
-        <>
+        <DeleteProvider>
             <PageHeader
                 title={
                     title ??
@@ -65,7 +66,7 @@ export const Show = ({
                     <CardContent>{children as ReactNode}</CardContent>
                 </Card>
             </div>
-        </>
+        </DeleteProvider>
     );
 };
 

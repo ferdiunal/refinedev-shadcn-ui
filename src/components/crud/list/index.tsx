@@ -8,6 +8,7 @@ import { FC, ReactNode } from "react";
 
 import { Breadcrumb, CreateButton, PageHeader } from "../..";
 import { ListProps } from "../types";
+import { DeleteProvider } from "../../../providers";
 
 export const List: FC<ListProps> = ({
     title,
@@ -59,9 +60,11 @@ export const List: FC<ListProps> = ({
                     </>
                 }
             />
-            <div className="relative pt-2 sm:pt-4 !mt-0">
-                {children as ReactNode}
-            </div>
+            <DeleteProvider>
+                <div className="relative pt-2 sm:pt-4 !mt-0">
+                    {children as ReactNode}
+                </div>
+            </DeleteProvider>
         </>
     );
 };

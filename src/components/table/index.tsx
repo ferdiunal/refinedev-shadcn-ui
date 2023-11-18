@@ -9,16 +9,7 @@ import {
     TableOptionsResolved,
     flexRender,
 } from "@tanstack/react-table";
-import React, {
-    FC,
-    ReactElement,
-    ReactNode,
-    cloneElement,
-    useCallback,
-    useEffect,
-    useMemo,
-} from "react";
-import { TableDeleteProvider } from "../../providers";
+import React, { FC, ReactElement, useCallback, useMemo } from "react";
 import {
     TableBody,
     TableCell,
@@ -149,92 +140,87 @@ export function Table<
     );
 
     return (
-        <TableDeleteProvider>
-            <div className="space-y-4">
-                <DataTableToolbar table={table} />
-                <div className="rounded-md border border-border">
-                    <TableUi>
-                        {showHeader && (
-                            <TableHeader>
-                                {table.getHeaderGroups().map((headerGroup) => (
-                                    <TableRow key={headerGroup.id}>
-                                        {headerGroup.headers.map((header) => {
-                                            const columnDef = header.column
-                                                .columnDef as CustomColumnDef<
-                                                TData,
-                                                TError
-                                            >;
-                                            return (
-                                                <TableHead key={header.id}>
-                                                    <div className="inline-flex flex-row items-center gap-x-2.5">
-                                                        {header.isPlaceholder
-                                                            ? null
-                                                            : flexRender(
-                                                                  header.column
-                                                                      .columnDef
-                                                                      .header,
-                                                                  header.getContext(),
-                                                              )}
-                                                        {tableOptions.enableSorting &&
-                                                            columnDef.enableSorting && (
-                                                                <SortAction
-                                                                    column={
-                                                                        header.column
-                                                                    }
-                                                                />
-                                                            )}
-                                                        {isFilterable &&
-                                                            columnDef?.filter &&
-                                                            columnDef.filter({
-                                                                column: header.column,
-                                                                title: `${columnDef.header} Filter`,
-                                                            })}
-                                                    </div>
-                                                </TableHead>
-                                            );
-                                        })}
-                                    </TableRow>
-                                ))}
-                            </TableHeader>
-                        )}
-                        <TableBody>
-                            {table.getRowModel().rows?.length ? (
-                                table.getRowModel().rows.map((row: any) => (
-                                    <TableRow
-                                        key={row.id}
-                                        data-state={
-                                            row.getIsSelected() && "selected"
-                                        }
-                                    >
-                                        {row
-                                            .getVisibleCells()
-                                            .map((cell: any) => (
-                                                <TableCell key={cell.id}>
-                                                    {flexRender(
-                                                        cell.column.columnDef
-                                                            .cell,
-                                                        cell.getContext(),
-                                                    )}
-                                                </TableCell>
-                                            ))}
-                                    </TableRow>
-                                ))
-                            ) : (
-                                <TableRow>
-                                    <TableCell
-                                        colSpan={columns.length}
-                                        className="h-24 text-center"
-                                    >
-                                        No results.
-                                    </TableCell>
+        <div className="space-y-4">
+            <DataTableToolbar table={table} />
+            <div className="rounded-md border border-border">
+                <TableUi>
+                    {showHeader && (
+                        <TableHeader>
+                            {table.getHeaderGroups().map((headerGroup) => (
+                                <TableRow key={headerGroup.id}>
+                                    {headerGroup.headers.map((header) => {
+                                        const columnDef = header.column
+                                            .columnDef as CustomColumnDef<
+                                            TData,
+                                            TError
+                                        >;
+                                        return (
+                                            <TableHead key={header.id}>
+                                                <div className="inline-flex flex-row items-center gap-x-2.5">
+                                                    {header.isPlaceholder
+                                                        ? null
+                                                        : flexRender(
+                                                              header.column
+                                                                  .columnDef
+                                                                  .header,
+                                                              header.getContext(),
+                                                          )}
+                                                    {tableOptions.enableSorting &&
+                                                        columnDef.enableSorting && (
+                                                            <SortAction
+                                                                column={
+                                                                    header.column
+                                                                }
+                                                            />
+                                                        )}
+                                                    {isFilterable &&
+                                                        columnDef?.filter &&
+                                                        columnDef.filter({
+                                                            column: header.column,
+                                                            title: `${columnDef.header} Filter`,
+                                                        })}
+                                                </div>
+                                            </TableHead>
+                                        );
+                                    })}
                                 </TableRow>
-                            )}
-                        </TableBody>
-                    </TableUi>
-                </div>
-                <Pagination table={table} />
+                            ))}
+                        </TableHeader>
+                    )}
+                    <TableBody>
+                        {table.getRowModel().rows?.length ? (
+                            table.getRowModel().rows.map((row: any) => (
+                                <TableRow
+                                    key={row.id}
+                                    data-state={
+                                        row.getIsSelected() && "selected"
+                                    }
+                                >
+                                    {row.getVisibleCells().map((cell: any) => (
+                                        <TableCell key={cell.id}>
+                                            {flexRender(
+                                                cell.column.columnDef.cell,
+                                                cell.getContext(),
+                                            )}
+                                        </TableCell>
+                                    ))}
+                                </TableRow>
+                            ))
+                        ) : (
+                            <TableRow>
+                                <TableCell
+                                    colSpan={columns.length}
+                                    className="h-24 text-center"
+                                >
+                                    No results.
+                                </TableCell>
+                            </TableRow>
+                        )}
+                    </TableBody>
+                </TableUi>
             </div>
-        </TableDeleteProvider>
+            <Pagination table={table} />
+        </div>
     );
 }
 
