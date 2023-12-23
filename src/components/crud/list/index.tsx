@@ -14,6 +14,7 @@ export const List: FC<ListProps> = ({
     title,
     resource: resourceFromProps,
     breadcrumb: breadcrumbFromProps,
+    createButtonProps,
     children,
 }) => {
     const translate = useTranslate();
@@ -55,7 +56,10 @@ export const List: FC<ListProps> = ({
                 extra={
                     <>
                         <div className="inline-flex flex-row gap-4">
-                            <CreateButton resource={resourceFromProps} />
+                            <CreateButton
+                                {...createButtonProps}
+                                resource={createButtonProps.resource ?? resourceFromProps}
+                            />
                         </div>
                     </>
                 }
