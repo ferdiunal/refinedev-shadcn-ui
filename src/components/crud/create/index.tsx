@@ -37,9 +37,9 @@ export const Create: React.FC<ListProps> = ({
                         `${identifier}.titles.List`,
                         `Create ${getUserFriendlyName(
                             resource?.meta?.label ??
-                                resource?.options?.label ??
-                                resource?.label ??
-                                identifier,
+                            resource?.options?.label ??
+                            resource?.label ??
+                            identifier,
                             "singular",
                         )}`,
                     )
@@ -54,7 +54,7 @@ export const Create: React.FC<ListProps> = ({
                 }
                 extra={
                     <>
-                        <ListButton />
+                        <ListButton resource={resourceFromProps} />
                     </>
                 }
             />

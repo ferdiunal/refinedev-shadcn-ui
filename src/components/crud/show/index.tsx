@@ -39,9 +39,9 @@ export const Show = ({
                         `${identifier}.titles.List`,
                         `Show ${getUserFriendlyName(
                             resource?.meta?.label ??
-                                resource?.options?.label ??
-                                resource?.label ??
-                                identifier,
+                            resource?.options?.label ??
+                            resource?.label ??
+                            identifier,
                             "singular",
                         )}`,
                     )
@@ -56,8 +56,8 @@ export const Show = ({
                 isBack
                 extra={
                     <div className="inline-flex items-center gap-x-2">
-                        <EditButton />
-                        <DeleteButton />
+                        <EditButton resource={resourceFromProps} />
+                        <DeleteButton resource={resourceFromProps} />
                     </div>
                 }
             />

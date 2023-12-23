@@ -37,9 +37,9 @@ export const Edit: React.FC<ListProps> = ({
                         `${identifier}.titles.List`,
                         `Edit ${getUserFriendlyName(
                             _resource?.meta?.label ??
-                                _resource?.options?.label ??
-                                _resource?.label ??
-                                identifier,
+                            _resource?.options?.label ??
+                            _resource?.label ??
+                            identifier,
                             "plural",
                         )}`,
                     )
@@ -54,8 +54,8 @@ export const Edit: React.FC<ListProps> = ({
                 }
                 extra={
                     <div className="inline-flex flex-row items-center gap-x-2">
-                        <ShowButton />
-                        <DeleteButton />
+                        <ShowButton resource={resource} />
+                        <DeleteButton resource={resource} />
                     </div>
                 }
             />
