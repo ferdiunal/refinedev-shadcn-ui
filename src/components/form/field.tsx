@@ -13,6 +13,7 @@ import {
     FormLabel,
     FormMessage,
 } from "../../ui";
+import { cn } from "@/lib/utils";
 
 type FormFieldProps<
     TFieldValues extends FieldValues = FieldValues,
@@ -20,6 +21,7 @@ type FormFieldProps<
 > = UseControllerProps<TFieldValues, TName> & {
     label?: string;
     description?: string;
+    className?: string;
     children: ReactElement<{
         field: ControllerRenderProps<TFieldValues, TName>;
     }>;
@@ -31,7 +33,7 @@ export const FormField = (props: FormFieldProps) => {
             name={props.name}
             render={({ field }: { field: any }) => {
                 return (
-                    <FormItem>
+                    <FormItem className={cn(props.className)}>
                         <FormLabel>{props.label}</FormLabel>
                         <FormControl>
                             {cloneElement(props.children, {

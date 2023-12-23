@@ -38,9 +38,9 @@ export const List: FC<ListProps> = ({
                         `${identifier}.titles.List`,
                         `List ${getUserFriendlyName(
                             resource?.meta?.label ??
-                                resource?.options?.label ??
-                                resource?.label ??
-                                identifier,
+                            resource?.options?.label ??
+                            resource?.label ??
+                            identifier,
                             "plural",
                         )}`,
                     )
@@ -55,7 +55,7 @@ export const List: FC<ListProps> = ({
                 extra={
                     <>
                         <div className="inline-flex flex-row gap-4">
-                            <CreateButton />
+                            <CreateButton resource={resourceFromProps} />
                         </div>
                     </>
                 }
