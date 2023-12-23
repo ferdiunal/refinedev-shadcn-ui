@@ -13,6 +13,7 @@ export const Create: React.FC<ListProps> = ({
     title,
     resource: resourceFromProps,
     breadcrumb: breadcrumbFromProps,
+    extra,
     children,
 }) => {
     const translate = useTranslate();
@@ -53,7 +54,7 @@ export const Create: React.FC<ListProps> = ({
                     )
                 }
                 extra={
-                    <>
+                    extra ?? <>
                         <ListButton resource={resourceFromProps} />
                     </>
                 }

@@ -12,6 +12,7 @@ import { DeleteProvider } from "@/providers";
 export const Edit: React.FC<ListProps> = ({
     title,
     resource,
+    extra,
     breadcrumb: breadcrumbFromProps,
     children,
 }) => {
@@ -53,7 +54,7 @@ export const Edit: React.FC<ListProps> = ({
                     )
                 }
                 extra={
-                    <div className="inline-flex flex-row items-center gap-x-2">
+                    extra ?? <div className="inline-flex flex-row items-center gap-x-2">
                         <ShowButton resource={resource} />
                         <DeleteButton resource={resource} />
                     </div>

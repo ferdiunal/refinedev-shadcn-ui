@@ -14,7 +14,10 @@ export type CreateProps = RefineCrudCreateProps<
         HTMLDivElement
     >,
     PageHeaderProps
->;
+> & Partial<{
+    extra: React.ReactNode;
+}>;
+
 
 export type EditProps = RefineCrudEditProps<
     React.DetailedHTMLProps<
@@ -22,7 +25,10 @@ export type EditProps = RefineCrudEditProps<
         HTMLDivElement
     >,
     PageHeaderProps
->;
+> & Partial<{
+    extra: React.ReactNode;
+}>;
+
 
 export type ListProps = Omit<RefineCrudListProps<
     React.DetailedHTMLProps<
@@ -36,6 +42,7 @@ export type ListProps = Omit<RefineCrudListProps<
     >
 >, "createButtonProps"> & Partial<{
     createButtonProps: CreateButtonProps;
+    extra: React.ReactNode;
 }>;
 
 export type ShowProps = RefineCrudShowProps<
@@ -44,4 +51,6 @@ export type ShowProps = RefineCrudShowProps<
         HTMLDivElement
     >,
     PageHeaderProps
->;
+> & Partial<{
+    extra: React.ReactNode;
+}>;

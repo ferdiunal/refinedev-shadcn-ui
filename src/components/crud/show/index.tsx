@@ -15,6 +15,7 @@ export const Show = ({
     title,
     resource: resourceFromProps,
     breadcrumb: breadcrumbFromProps,
+    extra,
     children,
 }: ListProps) => {
     const translate = useTranslate();
@@ -55,7 +56,7 @@ export const Show = ({
                 }
                 isBack
                 extra={
-                    <div className="inline-flex items-center gap-x-2">
+                    extra ?? <div className="inline-flex items-center gap-x-2">
                         <EditButton resource={resourceFromProps} />
                         <DeleteButton resource={resourceFromProps} />
                     </div>
