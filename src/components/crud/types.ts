@@ -34,9 +34,9 @@ export type ListProps = Omit<RefineCrudListProps<
         React.HTMLAttributes<HTMLDivElement>,
         HTMLDivElement
     >
->, "createButtonProps"> & {
+>, "createButtonProps"> & Partial<{
     createButtonProps: CreateButtonProps;
-}
+}>;
 
 export type ShowProps = RefineCrudShowProps<
     React.DetailedHTMLProps<
