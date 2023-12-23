@@ -58,7 +58,7 @@ export const List: FC<ListProps> = ({
                         <div className="inline-flex flex-row gap-4">
                             <CreateButton
                                 {...createButtonProps}
-                                resource={createButtonProps.resource ?? resourceFromProps}
+                                resource={createButtonProps?.resource ?? identifier}
                             />
                         </div>
                     </>
